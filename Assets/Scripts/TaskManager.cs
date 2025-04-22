@@ -1,103 +1,78 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TaskManager : MonoBehaviour
 {
-    [SerializeField] private GameObject taskItemPrefab;
-    [SerializeField] private Transform taskListParent;
+    public static TaskManager Instance;
 
-    private Dictionary<string, TaskData> tasks = new Dictionary<string, TaskData>();
-    private Dictionary<string, GameObject> taskUIItems = new Dictionary<string, GameObject>();
+    public List<TaskData> allTasks = new List<TaskData>();
 
-    private void Start()
+    private void Awake()
     {
-        CreateTasks();
-        DrawTaskList();
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
     }
 
-    private void CreateTasks()
+    public void TryCompleteTask(string taskID)
     {
-        AddTask(new TaskData("gather_wood", "Добыть 1 охапку дров"));
-        AddTask(new TaskData("go_to_river", "Подойти к речке"));
-        AddTask(new TaskData("upgrade_brewery", "Улучшить пивоварню", "gather_wood"));
-        AddTask(new TaskData("sleep", "Лечь спать", "upgrade_brewery"));
-    }
-
-    private void AddTask(TaskData task)
-    {
-        tasks[task.id] = task;
-    }
-
-    private void DrawTaskList()
-    {
-        foreach (var task in tasks.Values)
+        TaskData task = allTasks.Find(t => t.taskID == taskID);
+        if (task != null && task.isActive && !task.isCompleted)
         {
-            var item = Instantiate(taskItemPrefab, taskListParent);
-            var text = item.GetComponentInChildren<Text>();
-            text.text = task.description;
-
-            UpdateTaskUIVisual(task.id);
-            taskUIItems[task.id] = item;
+            task.isCompleted = true;
+            Debug.Log($"Задание выполнено: {task.description}");
+            CheckUnlocks();
+            CheckAllTasksCompleted();
         }
     }
 
-    public void CompleteTask(string taskId)
+    private void CheckUnlocks()
     {
-        if (!tasks.ContainsKey(taskId)) return;
-
-        tasks[taskId].isCompleted = true;
-        UpdateTaskUIVisual(taskId);
-
-        // Открываем все задачи, у которых это было условием
-        foreach (var task in tasks.Values)
+        foreach (TaskData task in allTasks)
         {
-            if (!task.isAvailable && task.prerequisiteTaskId == taskId)
+            if (!task.isActive && !task.isCompleted && !string.IsNullOrEmpty(task.requiredTaskID))
             {
-                task.isAvailable = true;
-                UpdateTaskUIVisual(task.id);
+                TaskData required = allTasks.Find(t => t.taskID == task.requiredTaskID);
+                if (required != null && required.isCompleted)
+                {
+                    task.isActive = true;
+                    Debug.Log($"Новое задание доступно: {task.description}");
+                }
+            }
+        }
+    }
+
+    private void CheckAllTasksCompleted()
+    {
+        bool allCompleted = true;
+        foreach (TaskData task in allTasks)
+        {
+            if (task.isActive && !task.isCompleted)
+            {
+                allCompleted = false;
+                break;
             }
         }
 
-        // Проверка — выполнены ли все доступные задания (кроме "sleep")
-        if (AllDailyTasksCompleted())
+        if (allCompleted)
         {
-            tasks["sleep"].isAvailable = true;
-            UpdateTaskUIVisual("sleep");
+            Debug.Log("Все дневные задания выполнены! Можно ложиться спать.");
+            // Тут активируем кнопку/задание "Лечь спать"
+            ActivateSleepTask();
         }
     }
 
-    private bool AllDailyTasksCompleted()
+    private void ActivateSleepTask()
     {
-        foreach (var task in tasks.Values)
+        TaskData sleepTask = allTasks.Find(t => t.taskID == "sleep_day_1");
+        if (sleepTask != null)
         {
-            if (task.id != "sleep" && task.isAvailable && !task.isCompleted)
-                return false;
+            sleepTask.isActive = true;
         }
-        return true;
     }
 
-    private void UpdateTaskUIVisual(string taskId)
+    public bool IsTaskActive(string taskID)
     {
-        if (!taskUIItems.ContainsKey(taskId)) return;
-
-        var task = tasks[taskId];
-        var item = taskUIItems[taskId];
-        var text = item.GetComponentInChildren<Text>();
-
-        var color = Color.white;
-        var strike = "";
-
-        if (!task.isAvailable)
-        {
-            color = new Color(1f, 1f, 1f, 0.5f); // полупрозрачный
-        }
-        else if (task.isCompleted)
-        {
-            strike = "<s>"; // зачёркнутый
-        }
-
-        text.text = $"{strike}{task.description}{(strike != "" ? "</s>" : "")}";
-        text.color = color;
+        TaskData task = allTasks.Find(t => t.taskID == taskID);
+        return task != null && task.isActive;
     }
 }
