@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 55c4438f16cbd904c8db55001b69997f
+guid: 309087b4ae571e64d9bbfc54d8110707
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -90,7 +90,31 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
     buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -105,11 +129,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DwarfMini_0
+      name: Dwarf_Idle_Right_0
       rect:
         serializedVersion: 2
-        x: 12
-        y: 16
+        x: 0
+        y: 0
         width: 18
         height: 19
       alignment: 0
@@ -119,18 +143,81 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ac7c9e60afa544442b7dd1f19fe59668
-      internalID: 1991065627
+      spriteID: 2981f30bc036cbd49b34076bd3ea90c1
+      internalID: 1690321942
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DwarfMini_1
+      name: Dwarf_Idle_Right_1
       rect:
         serializedVersion: 2
-        x: 34
-        y: 16
+        x: 20
+        y: 0
+        width: 20
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e685d537df9dab141bce4cf5cf40db78
+      internalID: 262995258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dwarf_Idle_Right_2
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 0
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f5071d29836c4b46b080e03160685cf
+      internalID: 1687876701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dwarf_Idle_Right_3
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 0
+        width: 18
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6753065634ff44745a78ff329e06e587
+      internalID: -945007259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dwarf_Idle_Right_4
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 0
         width: 18
         height: 19
       alignment: 0
@@ -140,8 +227,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0e7cf0e34e9384b48b19d3fa27b29f9d
-      internalID: -1990921234
+      spriteID: 8178087ed37d94745a2b1fde5415c282
+      internalID: 1640663633
       vertices: []
       indices: 
       edges: []
@@ -157,8 +244,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      DwarfMini_0: 1991065627
-      DwarfMini_1: -1990921234
+      Dwarf_Idle_Right_0: 1690321942
+      Dwarf_Idle_Right_1: 262995258
+      Dwarf_Idle_Right_2: 1687876701
+      Dwarf_Idle_Right_3: -945007259
+      Dwarf_Idle_Right_4: 1640663633
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
