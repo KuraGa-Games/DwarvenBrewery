@@ -21,27 +21,42 @@ public class TaskUIManager : MonoBehaviour
 
     void RefreshTaskList()
     {
-        var allTasks = TaskManager.Instance.GetAllTasks();
+        var availableTasks = TaskManager.Instance.GetAvailableTasks();
 
-        foreach (var task in allTasks)
+        // Удалим старые задачи, которых больше нет
+        var currentIDs = availableTasks.Select(t => t.Data.taskID).ToList();
+        var toRemove = activeItems.Keys.Where(id => !currentIDs.Contains(id)).ToList();
+        foreach (var id in toRemove)
+        {
+            Destroy(activeItems[id].gameObject);
+            activeItems.Remove(id);
+        }
+
+        foreach (var task in availableTasks)
         {
             string id = task.Data.taskID;
 
             if (!activeItems.ContainsKey(id))
             {
-                if (task.IsAvailable || task.IsCompleted)
-                {
-                    var itemGO = Instantiate(taskItemPrefab, taskListContainer);
-                    var item = itemGO.GetComponent<TaskUIItem>();
-                    item.Setup(id, task.Data.taskName, task.IsCompleted);
-                    activeItems.Add(id, item);
-                }
+                var itemGO = Instantiate(taskItemPrefab, taskListContainer);
+                var item = itemGO.GetComponent<TaskUIItem>();
+                item.Setup(id, task.Data.taskName, task.IsCompleted);
+                activeItems.Add(id, item);
             }
-            else
+            else if (task.IsCompleted)
             {
-                if (task.IsCompleted)
-                    activeItems[id].MarkCompleted();
+                activeItems[id].MarkCompleted();
             }
         }
+    }
+
+
+    public void ClearTaskList()
+    {
+        foreach (var item in activeItems.Values)
+        {
+            Destroy(item.gameObject);
+        }
+        activeItems.Clear();
     }
 }

@@ -21,8 +21,11 @@ public class DayNightCycle : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    public bool IsNight { get; private set; }
+
     public void StartNight()
     {
+        IsNight = true;
         Debug.Log("Наступила ночь");
         if (globalLight != null)
         {
@@ -35,6 +38,7 @@ public class DayNightCycle : MonoBehaviour
 
     public void StartDay()
     {
+        IsNight = false;
         Debug.Log("Наступил день");
         if (globalLight != null)
         {

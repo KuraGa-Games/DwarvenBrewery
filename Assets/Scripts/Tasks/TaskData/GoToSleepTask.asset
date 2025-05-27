@@ -15,7 +15,7 @@ MonoBehaviour:
   taskID: go_to_sleep
   taskName: "\u041B\u0435\u0447\u044C \u0441\u043F\u0430\u0442\u044C"
   description: "\u041B\u0435\u0447\u044C \u0441\u043F\u0430\u0442\u044C"
-  taskType: 0
+  taskType: 4
   prerequisiteTaskIDs:
   - build_foundation
   requiredAmount: 1
