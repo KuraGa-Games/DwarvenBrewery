@@ -15,7 +15,7 @@ MonoBehaviour:
   taskID: get_axe
   taskName: "\u0414\u043E\u0431\u044B\u0442\u044C \u0442\u043E\u043F\u043E\u0440"
   description: "\u0414\u043E\u0431\u044B\u0442\u044C \u0442\u043E\u043F\u043E\u0440"
-  taskType: 0
+  taskType: 1
   prerequisiteTaskIDs: []
   requiredAmount: 1
   isNightTask: 0

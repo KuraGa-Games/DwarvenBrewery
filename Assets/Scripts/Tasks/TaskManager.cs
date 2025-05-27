@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TaskManager : MonoBehaviour
 {
-    [SerializeField] private List<TaskData> allTasks; // Все задания в игре
+    [SerializeField] private List<TaskData> allTasks;
     private Dictionary<string, TaskStatus> taskStatuses = new Dictionary<string, TaskStatus>();
 
     public static TaskManager Instance { get; private set; }
@@ -75,8 +75,11 @@ public class TaskManager : MonoBehaviour
 
     public IEnumerable<TaskStatus> GetAvailableTasks()
     {
-        return taskStatuses.Values.Where(t => t.IsAvailable && !t.IsCompleted);
+        bool isNight = DayNightCycle.Instance.IsNight;
+        return taskStatuses.Values
+            .Where(t => t.IsAvailable && !t.IsCompleted && t.Data.isNightTask == isNight);
     }
+
 
     public IEnumerable<TaskStatus> GetAllTasks()
     {

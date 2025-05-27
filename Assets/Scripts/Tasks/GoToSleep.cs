@@ -27,12 +27,26 @@ public class GoToSleep : MonoBehaviour
         TaskManager.Instance.ReportProgress(taskId);
         hasSlept = true;
 
+        TaskUIManager ui = FindObjectOfType<TaskUIManager>();
+        ui.ClearTaskList();
+
         ScreenFader.Instance.FadeOut(() =>
         {
-            DayNightCycle.Instance.StartNight();
+            if (DayNightCycle.Instance.IsNight)
+            {
+                DayNightCycle.Instance.StartDay();
+            }
+            else
+            {
+                DayNightCycle.Instance.StartNight();
+            }
+
+            hasSlept = false; // чтобы можно было снова спать
+
             ScreenFader.Instance.FadeIn();
         });
     }
+
 
 
     private void OnTriggerEnter2D(Collider2D other)
