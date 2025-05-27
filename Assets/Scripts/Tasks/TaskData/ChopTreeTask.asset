@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c406e998620bfe40bb32b6fe4822c97, type: 3}
-  m_Name: CutTreeTask
+  m_Name: ChopTreeTask
   m_EditorClassIdentifier: 
-  taskID: cut_tree
+  taskID: chop_tree
   taskName: "\u0421\u0440\u0443\u0431\u0438\u0442\u044C \u0434\u0435\u0440\u0435\u0432\u043E"
   description: "\u0421\u0440\u0443\u0431\u0438\u0442\u044C \u0434\u0435\u0440\u0435\u0432\u043E"
   taskType: 0

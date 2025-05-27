@@ -19,6 +19,6 @@ MonoBehaviour:
     \u0434\u0440\u043E\u0432"
   taskType: 0
   prerequisiteTaskIDs:
-  - cut_tree
+  - chop_tree
   requiredAmount: 1
   isNightTask: 0
