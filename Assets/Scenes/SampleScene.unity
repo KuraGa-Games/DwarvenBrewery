@@ -58097,6 +58097,10 @@ PrefabInstance:
       propertyPath: m_GravityScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5887191039453651186, guid: f17ac24cb09bed34ba12648b7f7440aa, type: 3}
+      propertyPath: attackRange
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7843272240834818737, guid: f17ac24cb09bed34ba12648b7f7440aa, type: 3}
       propertyPath: m_RootOrder
       value: 1
