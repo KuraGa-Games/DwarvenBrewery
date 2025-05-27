@@ -146,15 +146,15 @@ public class UrkAI : MonoBehaviour
 
         if (isWalking)
         {
-            animator.SetFloat("inputX", currentMovementInput.x);
-            animator.SetFloat("inputY", currentMovementInput.y);
+            animator.SetFloat("InputX", currentMovementInput.x);
+            animator.SetFloat("InputY", currentMovementInput.y);
             animator.SetFloat("lastInputX", currentMovementInput.x); // Обновляем и lastInput для плавной остановки
             animator.SetFloat("lastInputY", currentMovementInput.y);
         }
         else
         {
-            animator.SetFloat("inputX", 0);
-            animator.SetFloat("inputY", 0);
+            animator.SetFloat("InputX", 0);
+            animator.SetFloat("InputY", 0);
             animator.SetFloat("lastInputX", lastMovementDirection.x);
             animator.SetFloat("lastInputY", lastMovementDirection.y);
         }
