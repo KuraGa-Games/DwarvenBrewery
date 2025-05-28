@@ -2,12 +2,8 @@ using UnityEngine;
 
 public class PickupItem : MonoBehaviour
 {
-    [SerializeField] private string taskId;
-    [SerializeField] private KeyCode pickupKey = KeyCode.E;
-
-    [Header("Звук подбора")]
-    [SerializeField] private AudioClip pickupSound;
-    [SerializeField] private float volume = 1f;
+    [SerializeField] private string taskId; // ID задания, которое будет продвинуто
+    [SerializeField] private KeyCode pickupKey = KeyCode.E; // Клавиша для подбора
 
     private bool isPlayerInRange = false;
 
@@ -21,14 +17,10 @@ public class PickupItem : MonoBehaviour
 
     private void Pickup()
     {
-        // Звук
-        if (pickupSound != null)
-        {
-            AudioSource.PlayClipAtPoint(pickupSound, transform.position, volume);
-        }
-
-        // Продвигаем задачу
+        // Засчитываем прогресс по задаче
         TaskManager.Instance.ReportProgress(taskId);
+
+        // Можно добавить звук, эффект и т.д. тут
 
         // Удаляем объект
         Destroy(gameObject);
