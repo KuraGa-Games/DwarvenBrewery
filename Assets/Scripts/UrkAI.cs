@@ -20,6 +20,9 @@ public class UrkAI : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
 
+    [Header("Death Settings")]
+    public float deathAnimationDuration = 1.5f;
+
     private enum UrkState { Idle, Chase, Attack, Hurt, Die }
     private UrkState currentState;
 
@@ -190,50 +193,42 @@ public class UrkAI : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (currentState == UrkState.Die) return;
+        if (currentState == UrkState.Die) return; // Если уже умирает, ничего не делаем
 
         health -= damage;
-        Debug.Log("Urk (" + gameObject.name + ") took " + damage + " damage. Health: " + health);
+        Debug.Log("Urk (" + gameObject.name + ") took " + damage + " damage. Current health: " + health);
 
-        currentState = UrkState.Hurt; // Переводим в состояние "получения урона", чтобы прервать другие действия
+        currentState = UrkState.Hurt; // Переводим в состояние Hurt, чтобы прервать действия
 
         if (animator != null)
         {
-            // Устанавливаем lastInputX/Y для выбора правильной Hurt_Direction анимации
-            // Используем lastMovementDirection, так как это последнее направление, в котором Урк "смотрел"
+            // Устанавливаем параметры для направленной анимации Hurt
             animator.SetFloat("lastInputX", lastMovementDirection.x);
             animator.SetFloat("lastInputY", lastMovementDirection.y);
-            animator.SetBool("isWalking", false); // Останавливаем анимацию ходьбы
+            animator.SetBool("isWalking", false);
 
             animator.SetTrigger("HurtTrigger");
-            Debug.Log("Urk (" + gameObject.name + ") HurtTrigger set. Hurt towards (" + animator.GetFloat("lastInputX").ToString("F2") + ", " + animator.GetFloat("lastInputY").ToString("F2") + ")");
+            // Debug.Log("Urk (" + gameObject.name + ") HurtTrigger set.");
         }
 
         if (health <= 0)
         {
-            Die();
+            Die(); // Если здоровье закончилось, вызываем смерть
         }
         else
         {
-            // После анимации Hurt Урк вернется в Idle.
-            // Можно использовать корутину, чтобы через короткое время вернуть его в предыдущее состояние (Chase/Idle),
-            // но Animator с переходом по Exit Time из Hurt в Idle должен справиться.
-            // Чтобы он не застревал в Hurt, мы просто меняем currentState на Hurt,
-            // а в Update() есть проверка, чтобы не выполнять основную логику в этом состоянии.
-            // Animator сам вернет его в Idle после анимации Hurt.
-            StartCoroutine(ResetStateAfterHurt()); // Корутина для возврата в Idle/Chase
+            // Если не умер, запускаем корутину для возврата из состояния Hurt
+            StopAllCoroutines(); // Останавливаем предыдущие корутины ResetStateAfterHurt, если были
+            StartCoroutine(ResetStateAfterHurt());
         }
     }
 
-    IEnumerator ResetStateAfterHurt()
+    IEnumerator ResetStateAfterHurt() // Убедись, что эта корутина есть
     {
-        // Длительность анимации Hurt. Подбери это значение!
-        // Или, если переход из Hurt в Idle имеет Exit Time = 1, можно просто подождать чуть меньше.
-        yield return new WaitForSeconds(0.5f); // Примерное время анимации Hurt
+        yield return new WaitForSeconds(0.5f); // Подбери время под анимацию Hurt
 
-        if (currentState == UrkState.Hurt) // Если он все еще в состоянии Hurt (не умер)
+        if (currentState == UrkState.Hurt) 
         {
-            // Решаем, куда вернуться: в Idle или Chase
             if (playerTransform != null && CanSeePlayer(Vector2.Distance(transform.position, playerTransform.position)))
             {
                 currentState = UrkState.Chase;
@@ -246,26 +241,43 @@ public class UrkAI : MonoBehaviour
     }
 
 
+
     void Die()
     {
-        if (currentState == UrkState.Die) return;
+        if (currentState == UrkState.Die) return; // Предотвращаем многократный вызов
 
-        Debug.Log("Urk (" + gameObject.name + ") is dying.");
-        currentState = UrkState.Die;
-        rb.velocity = Vector2.zero;
+        Debug.Log("Urk (" + gameObject.name + ") is dying. Health: " + health);
+        currentState = UrkState.Die; // Устанавливаем внутреннее состояние скрипта
+
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;   // Останавливаем любое движение
+                                          // rb.isKinematic = true; // Опционально: сделать тело невосприимчивым к физике
+        }
 
         Collider2D col = GetComponent<Collider2D>();
-        if (col != null) col.enabled = false;
+        if (col != null)
+        {
+            col.enabled = false; // Отключаем коллайдер
+        }
 
         if (animator != null)
         {
-            animator.SetBool("isWalking", false);
-            // lastInputX/Y для DieTrigger устанавливать не нужно, если анимация смерти не направленная
-            animator.SetTrigger("DieTrigger");
-            Debug.Log("Urk (" + gameObject.name + ") DieTrigger set.");
+            animator.SetBool("isWalking", false); // Убедимся, что не в анимации ходьбы
+            animator.ResetTrigger("AttackTrigger"); // Сбрасываем триггер атаки
+            animator.ResetTrigger("HurtTrigger");  // Сбрасываем триггер получения урона
+            animator.SetTrigger("DieTrigger");    // Запускаем триггер смерти
+            Debug.Log("Urk (" + gameObject.name + ") DieTrigger set. Will be destroyed in " + deathAnimationDuration + " seconds.");
+        }
+        else // Если аниматора нет (на всякий случай)
+        {
+            Debug.LogWarning("Urk (" + gameObject.name + ") has no Animator. Destroying immediately or with minimal delay.");
+            Destroy(gameObject, 0.1f);
+            return;
         }
 
-        Destroy(gameObject, 2f); // Настрой время под длину анимации death.anim
+        // Уничтожаем игровой объект ПОСЛЕ проигрывания анимации смерти, используя настраиваемую длительность
+        Destroy(gameObject, deathAnimationDuration);
     }
 
     public void InitializeStats(int dayNumber)

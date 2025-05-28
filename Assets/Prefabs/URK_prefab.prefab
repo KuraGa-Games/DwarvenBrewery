@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5887191039453651186}
   - component: {fileID: 5881584834269764423}
   - component: {fileID: 7462197326519175197}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: URK_prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

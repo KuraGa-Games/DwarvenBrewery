@@ -100772,7 +100772,8 @@ GameObject:
   - component: {fileID: 717463815}
   - component: {fileID: 717463816}
   - component: {fileID: 717463817}
-  m_Layer: 0
+  - component: {fileID: 717463818}
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -100906,6 +100907,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
+  attackDamage: 20
+  attackRange: 1
+  attackCooldown: 0.5
+  enemyLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  attackPoint: {fileID: 0}
 --- !u!114 &717463816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101016,6 +101024,29 @@ MonoBehaviour:
   currentHealth: 0
   maxMana: 100
   currentMana: 0
+  playerDeathAnimationDuration: 2
+  restartKey: 114
+--- !u!95 &717463818
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717463810}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dfa17b6736b41cd41a80ea5582669605, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &737529336
 GameObject:
   m_ObjectHideFlags: 0
@@ -105831,6 +105862,14 @@ PrefabInstance:
       propertyPath: attackRange
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5887191039453651186, guid: f17ac24cb09bed34ba12648b7f7440aa, type: 3}
+      propertyPath: playerLayer.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 5887191039453651186, guid: f17ac24cb09bed34ba12648b7f7440aa, type: 3}
+      propertyPath: deathAnimationDuration
+      value: 4.63
+      objectReference: {fileID: 0}
     - target: {fileID: 7843272240834818737, guid: f17ac24cb09bed34ba12648b7f7440aa, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -105878,6 +105917,10 @@ PrefabInstance:
     - target: {fileID: 7843272240834818742, guid: f17ac24cb09bed34ba12648b7f7440aa, type: 3}
       propertyPath: m_Name
       value: URK_prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 7843272240834818742, guid: f17ac24cb09bed34ba12648b7f7440aa, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f17ac24cb09bed34ba12648b7f7440aa, type: 3}
