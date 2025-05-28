@@ -105864,7 +105864,7 @@ SpriteRenderer:
   m_SortingLayerID: 1172735073
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 83e4008a2ce217a4fa56e019d63b4bb6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b0e1a47ad479c88478a5947c219aa269, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -105905,7 +105905,7 @@ MonoBehaviour:
   taskId: get_axe
   pickupKey: 101
   itemName: Axe
-  itemIcon: {fileID: 21300000, guid: 83e4008a2ce217a4fa56e019d63b4bb6, type: 3}
+  itemIcon: {fileID: 21300000, guid: b0e1a47ad479c88478a5947c219aa269, type: 3}
 --- !u!61 &875706417
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -105919,18 +105919,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -2.21564, y: -2.1270132}
+  m_Offset: {x: 0.31659842, y: -0.11342287}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 64, y: 32}
+    oldSize: {x: 9, y: 10}
     newSize: {x: 64, y: 32}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 8.874849, y: 10.375347}
+  m_Size: {x: 8.56976, y: 10.131278}
   m_EdgeRadius: 0
 --- !u!1 &919025105
 GameObject:
