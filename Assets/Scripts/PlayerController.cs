@@ -3,6 +3,9 @@ using UnityEngine.InputSystem; // Убедись, что эта строка е�
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Audio")]
+    [SerializeField] private AudioSource footstepAudioSource;
+
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 5f;
 
@@ -85,13 +88,26 @@ public class PlayerController : MonoBehaviour
             isCurrentlyRunning = true;
             rb.velocity = moveInput.normalized * moveSpeed;
             lastMoveDirection = moveInput.normalized;
+
+            // Воспроизводим звук шагов
+            if (!footstepAudioSource.isPlaying)
+            {
+                footstepAudioSource.Play();
+            }
         }
         else
         {
             isCurrentlyRunning = false;
             rb.velocity = Vector2.zero;
+
+            // Останавливаем звук шагов
+            if (footstepAudioSource.isPlaying)
+            {
+                footstepAudioSource.Stop();
+            }
         }
     }
+
 
     private void HandleAnimation()
     {

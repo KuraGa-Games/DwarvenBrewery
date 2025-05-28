@@ -126,3 +126,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   taskId: pickup_wood
   pickupKey: 101
+  pickupSound: {fileID: 8300000, guid: 4ebbd55b6fecd3e429db89befe8e7e98, type: 3}
+  volume: 1

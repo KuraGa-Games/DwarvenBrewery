@@ -4,8 +4,14 @@ public class BuildFoundation : MonoBehaviour
 {
     [SerializeField] private string taskId = "build_foundation";
     [SerializeField] private KeyCode interactKey = KeyCode.E;
-    [SerializeField] private GameObject completedVisual; // Готовый фундамент
-    [SerializeField] private GameObject inProgressVisual; // Недостроенное/пустое место
+
+    [Header("Визуализация строительства")]
+    [SerializeField] private GameObject completedVisual;
+    [SerializeField] private GameObject inProgressVisual;
+
+    [Header("Звук строительства")]
+    [SerializeField] private AudioClip buildSound;
+    [SerializeField] private float volume = 1f;
 
     private bool isPlayerInRange = false;
     private bool isBuilt = false;
@@ -29,7 +35,13 @@ public class BuildFoundation : MonoBehaviour
         TaskManager.Instance.ReportProgress(taskId);
         isBuilt = true;
 
-        // Переключаем визуал
+        // Звук строительства
+        if (buildSound != null)
+        {
+            AudioSource.PlayClipAtPoint(buildSound, transform.position, volume);
+        }
+
+        // Обновляем визуал
         if (inProgressVisual) inProgressVisual.SetActive(false);
         if (completedVisual) completedVisual.SetActive(true);
     }

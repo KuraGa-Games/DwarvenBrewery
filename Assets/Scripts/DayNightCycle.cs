@@ -20,6 +20,11 @@ public class DayNightCycle : MonoBehaviour
     [SerializeField] private Transform urkaSpawnPoint;
 
 
+    public event System.Action OnDayStarted;
+    public event System.Action OnNightStarted;
+
+
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -31,6 +36,7 @@ public class DayNightCycle : MonoBehaviour
     public void StartNight()
     {
         IsNight = true;
+        OnNightStarted?.Invoke();
         Debug.Log("Наступила ночь");
 
         if (globalLight != null)
@@ -47,6 +53,7 @@ public class DayNightCycle : MonoBehaviour
     public void StartDay()
     {
         IsNight = false;
+        OnDayStarted?.Invoke();
         Debug.Log("Наступил день");
         if (globalLight != null)
         {

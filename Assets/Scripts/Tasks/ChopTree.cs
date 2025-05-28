@@ -9,7 +9,20 @@ public class ChopTree : MonoBehaviour
     [SerializeField] private GameObject woodBundlePrefab;
     [SerializeField] private Transform spawnPoint;
 
+    [Header("Звук рубки")]
+    [SerializeField] private AudioClip chopSound;
+    [SerializeField] private float volume = 1f;
+
     private bool isPlayerInRange = false;
+    private AudioSource audioSource;
+
+    private void Awake()
+    {
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.spatialBlend = 1f; // 3D звук (если используется)
+        audioSource.rolloffMode = AudioRolloffMode.Linear;
+    }
 
     private void Update()
     {
@@ -34,7 +47,13 @@ public class ChopTree : MonoBehaviour
     {
         TaskManager.Instance.ReportProgress(taskId);
 
-        // Спавним охапку дров
+        // Звук
+        if (chopSound != null)
+        {
+            AudioSource.PlayClipAtPoint(chopSound, transform.position, volume);
+        }
+
+        // Спавн дров
         if (woodBundlePrefab != null && spawnPoint != null)
         {
             Instantiate(woodBundlePrefab, spawnPoint.position, Quaternion.identity);

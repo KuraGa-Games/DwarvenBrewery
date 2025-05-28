@@ -7,6 +7,10 @@ public class GoToSleep : MonoBehaviour
 
     [SerializeField] private KeyCode interactKey = KeyCode.E;
 
+    [Header("«вук сна")]
+    [SerializeField] private AudioClip sleepSound;
+    [SerializeField] private float volume = 1f;
+
     private bool isPlayerInRange = false;
     private bool hasSlept = false;
 
@@ -31,6 +35,12 @@ public class GoToSleep : MonoBehaviour
         TaskManager.Instance.ReportProgress(currentTaskId);
         hasSlept = true;
 
+        // «вук сна
+        if (sleepSound != null)
+        {
+            AudioSource.PlayClipAtPoint(sleepSound, transform.position, volume);
+        }
+
         TaskUIManager ui = FindObjectOfType<TaskUIManager>();
         ui.ClearTaskList();
 
@@ -46,13 +56,9 @@ public class GoToSleep : MonoBehaviour
             }
 
             hasSlept = false;
-
             ScreenFader.Instance.FadeIn();
         });
     }
-
-
-
 
     private void OnTriggerEnter2D(Collider2D other)
     {
