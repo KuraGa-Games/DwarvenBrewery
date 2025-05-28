@@ -50,6 +50,9 @@ TagManager:
   - name: Water
     uniqueID: 2128827611
     locked: 0
+  - name: Decor
+    uniqueID: 451478793
+    locked: 0
   - name: Player
     uniqueID: 4060318945
     locked: 0
@@ -58,7 +61,4 @@ TagManager:
     locked: 0
   - name: Forest
     uniqueID: 3193264677
-    locked: 0
-  - name: UpperForest
-    uniqueID: 451478793
     locked: 0
