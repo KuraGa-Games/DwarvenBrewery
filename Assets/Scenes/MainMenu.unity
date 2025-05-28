@@ -256,7 +256,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PLAY
+  m_text: "\u0418\u0413\u0420\u0410\u0422\u042C"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1b69e354b495d9c44ab660844bcc36f6, type: 2}
   m_sharedMaterial: {fileID: 8085931166300774475, guid: 1b69e354b495d9c44ab660844bcc36f6, type: 2}
