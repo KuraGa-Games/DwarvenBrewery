@@ -41,12 +41,23 @@ public class PickupItem : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
+        {
             isPlayerInRange = true;
+
+            if (TaskManager.Instance.IsTaskAvailable(taskId))
+            {
+                InteractionHint.Instance.ShowHint();
+            }
+        }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
+        {
             isPlayerInRange = false;
+            InteractionHint.Instance.HideHint();
+        }
     }
+
 }

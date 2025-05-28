@@ -51,6 +51,11 @@ public class BuildFoundation : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = true;
+
+            if (TaskManager.Instance.IsTaskAvailable(taskId))
+            {
+                InteractionHint.Instance.ShowHint();
+            }
         }
     }
 
@@ -59,6 +64,8 @@ public class BuildFoundation : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = false;
+            InteractionHint.Instance.HideHint();
         }
     }
+
 }

@@ -71,6 +71,11 @@ public class ChopTree : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = true;
+
+            if (TaskManager.Instance.IsTaskAvailable(taskId))
+            {
+                InteractionHint.Instance.ShowHint();
+            }
         }
     }
 
@@ -79,6 +84,8 @@ public class ChopTree : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInRange = false;
+            InteractionHint.Instance.HideHint();
         }
     }
+
 }
