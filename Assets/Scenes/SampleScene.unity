@@ -78267,6 +78267,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0c4c6aeeea2a0d64db498e086658eca6, type: 2}
   - {fileID: 11400000, guid: f116782bc41520249aaffd1d821e7c48, type: 2}
   - {fileID: 11400000, guid: 18c3c303108395245b11a03a8d0c8391, type: 2}
+  - {fileID: 11400000, guid: e30ae1e70a27e09479e30372ff4514ac, type: 2}
+  - {fileID: 11400000, guid: 244738de8419f354aabce3ab5e1d6ce7, type: 2}
 --- !u!4 &294277430
 Transform:
   m_ObjectHideFlags: 0
@@ -105518,6 +105520,8 @@ MonoBehaviour:
   dayIntensity: 1
   nightColor: {r: 0.247775, g: 0.3464236, b: 0.6037736, a: 1}
   nightIntensity: 0.8
+  urkaPrefab: {fileID: 2301803605442742383, guid: b801043ed58e90244874009c2e65dc5b, type: 3}
+  urkaSpawnPoint: {fileID: 1296982347}
 --- !u!1 &984397480
 GameObject:
   m_ObjectHideFlags: 0
@@ -107392,7 +107396,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdda186c69507614d872213085b0ea94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  taskId: go_to_sleep
+  dayTaskId: go_to_sleep
+  nightTaskId: go_to_sleep_night
   interactKey: 101
 --- !u!114 &2071694578
 MonoBehaviour:
@@ -107401,12 +107406,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2071694573}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cdda186c69507614d872213085b0ea94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  taskId: go_to_sleep_night
+  dayTaskId: go_to_sleep
+  nightTaskId: go_to_sleep_night
   interactKey: 101
 --- !u!61 &2071694579
 BoxCollider2D:
@@ -107488,6 +107494,10 @@ PrefabInstance:
     - target: {fileID: 2301803605442742383, guid: b801043ed58e90244874009c2e65dc5b, type: 3}
       propertyPath: m_Name
       value: URK_prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 2301803605442742383, guid: b801043ed58e90244874009c2e65dc5b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b801043ed58e90244874009c2e65dc5b, type: 3}

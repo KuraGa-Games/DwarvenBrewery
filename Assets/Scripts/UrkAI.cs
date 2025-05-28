@@ -246,6 +246,8 @@ public class UrkAI : MonoBehaviour
     {
         if (currentState == UrkState.Die) return; // Предотвращаем многократный вызов
 
+        TaskManager.Instance.ReportProgress("beat_orc");
+
         Debug.Log("Urk (" + gameObject.name + ") is dying. Health: " + health);
         currentState = UrkState.Die; // Устанавливаем внутреннее состояние скрипта
 

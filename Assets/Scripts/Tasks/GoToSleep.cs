@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class GoToSleep : MonoBehaviour
 {
-    [SerializeField] private string taskId = "go_to_sleep";
+    [SerializeField] private string dayTaskId = "go_to_sleep";
+    [SerializeField] private string nightTaskId = "go_to_sleep_night";
+
     [SerializeField] private KeyCode interactKey = KeyCode.E;
 
     private bool isPlayerInRange = false;
@@ -18,13 +20,15 @@ public class GoToSleep : MonoBehaviour
 
     private void TrySleep()
     {
-        if (!TaskManager.Instance.IsTaskAvailable(taskId))
+        string currentTaskId = DayNightCycle.Instance.IsNight ? nightTaskId : dayTaskId;
+
+        if (!TaskManager.Instance.IsTaskAvailable(currentTaskId))
         {
             Debug.Log("ѕока рано спать!");
             return;
         }
 
-        TaskManager.Instance.ReportProgress(taskId);
+        TaskManager.Instance.ReportProgress(currentTaskId);
         hasSlept = true;
 
         TaskUIManager ui = FindObjectOfType<TaskUIManager>();
@@ -41,11 +45,12 @@ public class GoToSleep : MonoBehaviour
                 DayNightCycle.Instance.StartNight();
             }
 
-            hasSlept = false; // чтобы можно было снова спать
+            hasSlept = false;
 
             ScreenFader.Instance.FadeIn();
         });
     }
+
 
 
 

@@ -15,6 +15,11 @@ public class DayNightCycle : MonoBehaviour
     [SerializeField] private Color nightColor = new Color(0.247775f, 0.3464236f, 0.6037736f); // холодный
     [SerializeField] private float nightIntensity = 0.8f;
 
+
+    [SerializeField] private GameObject urkaPrefab;
+    [SerializeField] private Transform urkaSpawnPoint;
+
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -27,14 +32,17 @@ public class DayNightCycle : MonoBehaviour
     {
         IsNight = true;
         Debug.Log("Ќаступила ночь");
+
         if (globalLight != null)
         {
             globalLight.color = nightColor;
             globalLight.intensity = nightIntensity;
         }
 
-        // здесь можно запускать ночные задани€
+        SpawnUrka();
+        ActivateNightTasks();
     }
+
 
     public void StartDay()
     {
@@ -48,4 +56,25 @@ public class DayNightCycle : MonoBehaviour
 
         // здесь можно перезапустить дневные задачи
     }
+
+
+    private void SpawnUrka()
+    {
+        if (urkaPrefab != null && urkaSpawnPoint != null)
+        {
+            Instantiate(urkaPrefab, urkaSpawnPoint.position, Quaternion.identity);
+            Debug.Log("”рка заспавнен");
+        }
+        else
+        {
+            Debug.LogWarning("Ќе назначен урка или точка спавна");
+        }
+    }
+
+    private void ActivateNightTasks()
+    {
+        // ќбновим доступные задачи (задани€ уже заранее загружены TaskManager'ом)
+        TaskManager.Instance.ReportProgress("beat_orc", 0); // просто Ђпробуждаемї задание
+    }
+
 }
